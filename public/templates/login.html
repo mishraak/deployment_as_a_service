@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="row" ng-controller="login">
+		<h2>Login Here</h2>
+		<div class="col-sm-4" style="margin: 10px;">
+			<form >
+			<div class="form-group">
+				<label for="email">Email:</label>
+					<input type="email" class="form-control" ng-model="username" placeholder="Enter email">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password:</label>
+					<input type="password" class="form-control" ng-model="password" placeholder="Enter password">
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox"> Remember me</label>
+			</div>
+			<div class="alert alert-danger" ng-hide="invalid_login">
+				<strong>Incorrect username or password</strong>
+			</div>
+			<div class="alert alert-success" ng-hide="valid_login">
+				<strong>Hey you are logged in now!</strong>
+			</div>
+			<input type="submit" class="btn btn-success" ng-click="submit();" value="Login" />
+			<input type="submit" class="btn btn-success" ng-click="register();" value="Register" />
+			</form>
+		</div>
+	</div>
+</div>

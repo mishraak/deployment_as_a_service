@@ -1,0 +1,37 @@
+td {
+    padding: 10px;;
+}
+
+.entry {
+    width: 320px;
+    height: 25px;
+    padding: 2%;
+}
+
+.button {
+    background-color: Blue; /* Green */
+    border: ridge;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.titlebar {
+    font-size: 20px;
+    margin-left: 15%;
+    padding: 2%;
+    background-color: Blue; /* Green */
+    border: solid;
+    color: white;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+progress {
+    height: 15px;
+    visibility: hidden;
+    color: Green;
+}

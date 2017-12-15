@@ -1,0 +1,19 @@
+{
+  "name": "MongoLoginApplication",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ejs": "*",
+    "express": "3.2.6",
+    "express-session": "^1.15.2",
+    "lob": "^4.1.1",
+    "mongodb": "^2.2.25",
+    "yaml-configuration-loader": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=0.12.7"
+  }
+}

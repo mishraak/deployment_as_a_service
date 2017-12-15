@@ -1,0 +1,152 @@
+<style>
+#panel panel-primary {
+	width: 100%;
+	height: 100%
+}
+</style>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    color:black;
+}
+tr:nth-child(even) {
+    background-color: #eae4d7;
+}
+tr:nth-child(odd) {
+    background-color: #8bf4f3;
+}
+</style>
+<div class="row">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+    				<div class="panel-heading">Start Instance and Deploy Node App</div>
+    				<div class="panel-body">
+    					<form class="form-horizontal">
+							<fieldset>
+								<div class="form-group">
+  									<label class="col-md-4 control-label" for="textinput">Github Repository Link</label>  
+  									<div class="col-md-8">
+  										<input id="textinput" name="textinput" type="text" placeholder="Enter your Github Repo clonable URL" ng-model="github_link" class="form-control input-md" required="">
+  										<span class="help-block">Make Sure Your Repo is public.</span>  
+  									</div>
+								</div>
+								<div class="form-group">
+  									<label class="col-md-4 control-label" for="textinput">Package Name</label>  
+  									<div class="col-md-8">
+  										<input id="textinput1" name="textinput1" type="text" placeholder="Enter your Application Package name" ng-model="package_name" class="form-control input-md" required="">
+  										<span class="help-block">Example: npm install *package_name*</span>  
+  									</div>  							
+								</div>
+								<div class="form-group">
+  									<label class="col-md-4 control-label" for="textinput">Enter server file Name:</label>  
+  									<div class="col-md-8">
+  										<input id="textinput2" name="textinput2" type="text" placeholder="Enter relative server file Name" ng-model="server_path" class="form-control input-md" required="">
+  										<span class="help-block">Make Sure Your Repo is public.</span>  
+  									</div>
+  									<div class="col-md-12"><input type="submit" class="btn btn-success btn-block btn-lg" ng-click="create_instance(github_link,package_name,server_path)" value="Create Instance" /></div>
+								</div>
+							</fieldset>
+						</form>
+    				</div>
+  				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-warning">
+    				<div class="panel-heading">Pre-Requisites for the Deployment</div>
+    				<div class="panel-body">
+    				<div class="col-md-1"></div>
+    				<div class="col-md-10">
+    					<div class="row"><strong> Github repository must be public.</strong></div>
+    					<div class="row"><strong> Each and Every Dependency Must Be Specified in Package.JSON</strong></div>
+    					<div class="row"><strong> Test Every Functionality before Deploying.</strong></div>
+    					<div class="row"><strong> MongoDB port must be 27017.</strong></div>
+    				</div>
+    				<div class="col-md-1"></div>
+    				</div>
+  				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success">
+    				<div class="panel-heading">Most Recent Instance</div>
+    				<div class="panel-body">
+    					<div class="panel-body">
+    				<div class="col-md-1"></div>
+    				<div class="col-md-10">
+    					<div class="row"><strong>Instance ID		:{{Instance_Latest.InstanceId}}</strong></div>
+    					<div class="row"><strong>Instance Type		:{{Instance_Latest.InstanceType}}</strong></div>
+    					<div class="row"><strong>Availability Zone	:{{Instance_Latest.Placement.AvailabilityZone}}</strong></div>
+    					<div class="row"><strong>Private DNS Name 	:{{Instance_Latest.PrivateDnsName}}</strong></div>
+    					<div class="row"><strong>Private IP Address	:{{Instance_Latest.PrivateIpAddress}}</strong></div>
+    					<div class="row"><strong>Public DNS Name 	:{{Instance_Latest.PublicDnsName}}</strong></div>
+    					<div class="row"><strong>Public IP Address	:{{Instance_Latest.PublicIpAddress}}</strong></div>
+    					<div class="row"><strong>Instance Status	:{{Instance_Latest.State.Name}}</strong></div><br>
+    				</div>
+    				<div class="col-md-1"></div>    				
+    				</div>
+    				<div class="col-md-12"><input type="submit" class="btn btn-danger btn-block btn-lg" ng-click="terminate_instance(Instance_Latest.InstanceId);" value="Terminate Instance"/></div>
+    				</div>
+  				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-info">
+    				<div class="panel-heading">Your Instances</div>
+    				<div class="panel-body">
+    					<table>
+    					<tr>
+    					<th>Instance ID</th>
+    					<th>Instance Status</th>
+    					<th>Action</th>
+    					</tr>
+    					<tr ng-repeat="x in Instance_Table">
+    						<td>{{x.InstanceId}}</td>
+    						<td>{{x.State.Name}}</td>
+    						<td><button type="button" class="btn btn-success" ng-click="manage_Instance(x.InstanceId)">Manage</button></td>
+  						</tr>
+    					</table>
+    				</div>
+  				</div>
+			</div>
+		</div>
+</div>
+<div class="row" ng-if="ind_mgmt">
+			<div class="col-md-12">
+				<div class="panel panel-success" >
+    				<div class="panel-heading">Current Instance</div>
+    				<div class="panel-body">
+    					<div class="panel-body">
+    				<div class="col-md-1"></div>
+    				<div class="col-md-10">
+    					<div class="row"><strong>Instance ID		:{{Instance_Manage.InstanceId}}</strong></div>
+    					<div class="row"><strong>Instance Type		:{{Instance_Manage.InstanceType}}</strong></div>
+    					<div class="row"><strong>Availability Zone	:{{Instance_Manage.Placement.AvailabilityZone}}</strong></div>
+    					<div class="row"><strong>Private DNS Name 	:{{Instance_Manage.PrivateDnsName}}</strong></div>
+    					<div class="row"><strong>Private IP Address	:{{Instance_Manage.PrivateIpAddress}}</strong></div>
+    					<div class="row"><strong>Public DNS Name 	:{{Instance_Manage.PublicDnsName}}</strong></div>
+    					<div class="row"><strong>Public IP Address	:{{Instance_Manage.PublicIpAddress}}</strong></div>
+    					<div class="row"><strong>Instance Status	:{{Instance_Manage.State.Name}}</strong></div><br>
+    				</div>
+    				<div class="col-md-1"></div>    				
+    				</div>
+    				<div class="col-md-4">
+    				<input type="submit" class="btn btn-success btn-block btn-lg" ng-click="start_instance(Instance_Manage.InstanceId);" value="Start Instance"/>
+    				</div>
+    				<div class="col-md-4">
+    				<input type="submit" class="btn btn-warning btn-block btn-lg" ng-click="stop_instance(Instance_Manage.InstanceId);" value="Stop Instance"/>
+    				</div>
+    				<div class="col-md-4">
+    				<input type="submit" class="btn btn-danger btn-block btn-lg" ng-click="terminate_instance(Instance_Manage.InstanceId);" value="Terminate Instance"/>
+    				</div>
+    				</div>
+  				</div>
+			</div>
+</div>
